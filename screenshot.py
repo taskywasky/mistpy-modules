@@ -2,7 +2,7 @@ REQUIREMENTS = [("Pillow", "PIL")]
 
 from io import BytesIO
 
-from PIL import ImageGrab
+
 
 from telegram.ext import CommandHandler
 from telegram.constants import ParseMode
@@ -15,6 +15,7 @@ def run(ctx):
     ctx["app"].add_handler(CommandHandler("screenshot", screenshot))
 
 async def screenshot(update, context):
+    from PIL import ImageGrab
     print(f"[screenshot] Received command from chat_id: {update.effective_chat.id}, username: {update.message.from_user.username}")
 
     if not passedCtx["auth"].CheckAuth(update.effective_chat.id):
