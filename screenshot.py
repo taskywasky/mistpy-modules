@@ -1,3 +1,5 @@
+from io import BytesIO
+
 from PIL import ImageGrab
 
 from telegram.ext import CommandHandler
@@ -30,10 +32,15 @@ async def screenshot(update, context):
 
     try:
         ss = ImageGrab.grab(all_screens=True)
+        buffer = BytesIO()
+        buffer.name = "screencap.png"
+        ss.save(buffer, format="PNG")
+
+        buffer.seek(0)
         #screenshot.save("screenshot.png")
 
         #with open("screenshot.png", "rb") as f:
-        await update.message.reply_photo(photo=ss, caption="📸 Screenshot captured.")
+        await update.message.reply_photo(photo=buffer, caption="📸 Screenshot captured.")
     except Exception as e:
         print(f"Error capturing screenshot: {e}")
         #await update.message.reply_text("❌ Failed to capture screenshot.")
