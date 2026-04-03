@@ -11,7 +11,7 @@ def run(ctx):
     ctx["app"].add_handler(CommandHandler("identify", identify))
 
 async def identify(update, context):
-    if not passedCtx["auth"].CheckAuth(update.message.from_user.username):
+    if not passedCtx["auth"].CheckAuth(update.message.chat_id):
         print(f"Unauthorized access attempt by {update.message.from_user.username}")
         return
 
