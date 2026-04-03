@@ -1,4 +1,4 @@
-REQUIREMENTS = [("Pillow", "PIL")]
+REQUIREMENTS = ["Pillow"] # this is for the module loader, it downloads dependencies as well :p
 
 from io import BytesIO
 
