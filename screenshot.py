@@ -1,6 +1,6 @@
 from io import BytesIO
 
-from PIL import ImageGrab
+import PIL
 
 from telegram.ext import CommandHandler
 from telegram.constants import ParseMode
@@ -31,7 +31,7 @@ async def screenshot(update, context):
         return
 
     try:
-        ss = ImageGrab.grab(all_screens=True)
+        ss = PIL.ImageGrab.grab(all_screens=True)
         buffer = BytesIO()
         buffer.name = "screencap.png"
         ss.save(buffer, format="PNG")
