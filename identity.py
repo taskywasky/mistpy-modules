@@ -1,0 +1,28 @@
+from telegram.ext import CommandHandler
+
+from telegram import Bot
+
+passedCtx = None
+
+def run(ctx):
+    global bot
+    bot = ctx["app"].bot
+
+    passedCtx = ctx
+    ctx["app"].add_handler(CommandHandler("identify", identify))
+
+async def identify(update, context):
+    if not passedCtx["auth"].CheckAuth(update.message.from_user.username):
+        print(f"Unauthorized access attempt by {update.message.from_user.username}")
+        return
+
+    if not context.args:
+        await update.message.reply_text("Usage: /identify <client_id>")
+        return
+    
+    if context.args[0] != passedCtx["info"].ReturnClientID():
+        print("Not the same client ID")
+        return
+    IDENTIFIERS = passedCtx["info"].GetUniqueIdentifiers()
+    response = f"Current identifiers:\nMachine Name: {IDENTIFIERS['MachineName']}\nOS: {IDENTIFIERS['OS']} {IDENTIFIERS['OSVersion']} ({IDENTIFIERS['Architecture']})\nProcessor: {IDENTIFIERS['Processor']}\nUsername: {IDENTIFIERS['Username']}"
+    await update.message.reply_text(response)
