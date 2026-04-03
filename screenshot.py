@@ -1,4 +1,4 @@
-REQUIREMENTS = [("Pillow", "PIL"), "BytesIO"]
+REQUIREMENTS = [("Pillow", "PIL")]
 
 from io import BytesIO
 
