@@ -1,4 +1,4 @@
-var bot = (dynamic)ctx["bot"];
+var bot = (TelegramBotClient)ctx["bot"];
 var commands = (Dictionary<string, Func<string, dynamic, Task>>)ctx["commands"];
 
 commands["/hello"] = async (args, msg) =>
